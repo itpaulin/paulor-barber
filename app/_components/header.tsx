@@ -18,7 +18,7 @@ import Link from "next/link";
 const Header = () => {
   return (
     <Card className="flex h-[90px] w-full flex-row items-center justify-between px-5 py-6">
-      <div className="">
+      <Link href="/">
         <Image
           src="/logo.png"
           alt="logo PauloR Barber"
@@ -26,7 +26,7 @@ const Header = () => {
           height={0}
           className=""
         />
-      </div>
+      </Link>
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="ghost">
