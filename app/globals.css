@@ -80,8 +80,8 @@
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 100%;
+    --background: 225 9% 9%;
+    --foreground: 210 40% 98%;
     --card: 0 0% 4%;
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 4%;
@@ -92,8 +92,8 @@
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 9%;
     --muted-foreground: 24 5.4% 63.9%;
-    --accent: 0 0% 9%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 228 6% 16%;
+    --accent-foreground: 210 40% 98%;
     --destructive: 0 72.2% 50.6%;
     --destructive-foreground: 0 0% 100%;
     --border: 12 6.5% 15.1%;
