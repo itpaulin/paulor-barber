@@ -23,6 +23,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
+import EnsureDialog from "./ui/ensure-dialog";
 
 const Header = () => {
   const { data } = useSession();
@@ -65,14 +66,18 @@ const Header = () => {
                   <span className="px-3 pt-1 font-normal">
                     {data.user.name}
                   </span>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="pt-1"
-                    onClick={handleLogoutClick}
+
+                  <EnsureDialog
+                    text="Deseja mesmo sair da plataforma?"
+                    confirm="Sair"
+                    cancel="Cancelar"
+                    title="Sair"
+                    action={handleLogoutClick}
                   >
-                    <LogOut size={20} />
-                  </Button>
+                    <Button variant="outline" size="icon" className="pt-1">
+                      <LogOut size={20} />
+                    </Button>
+                  </EnsureDialog>
                 </div>
               ) : (
                 <div className=" flex flex-row pb-3 pt-6">
