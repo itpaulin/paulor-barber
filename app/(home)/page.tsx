@@ -31,9 +31,23 @@ export default async function Home() {
           Recomendados
         </h2>
         <div className="no-scrollbar flex gap-4 overflow-x-auto">
-          {barbershops.map((barbershop) => (
-            <BarbershopItem barbershop={barbershop} key={barbershop.id} />
-          ))}
+          {barbershops
+            .map((barbershop) => (
+              <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+            ))
+            .slice(0, 4)}
+        </div>
+      </div>
+      <div className="mt-6">
+        <h2 className=" mb-3 text-xs font-bold uppercase text-gray-400">
+          Populares
+        </h2>
+        <div className="no-scrollbar flex gap-4 overflow-x-auto">
+          {barbershops
+            .map((barbershop) => (
+              <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+            ))
+            .slice(4)}
         </div>
       </div>
     </div>
