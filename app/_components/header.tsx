@@ -65,7 +65,12 @@ const Header = () => {
                   <span className="px-3 pt-1 font-normal">
                     {data.user.name}
                   </span>
-                  <Button variant="outline" size="icon" className="pt-1">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="pt-1"
+                    onClick={handleLogoutClick}
+                  >
                     <LogOut size={20} />
                   </Button>
                 </div>
