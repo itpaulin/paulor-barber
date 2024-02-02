@@ -4,7 +4,7 @@ import { ptBR } from "date-fns/locale";
 import Search from "./_components/search";
 import BookingItem from "../_components/booking-item";
 import { db as prismaClient } from "@/app/_lib/prisma";
-import BarbershopItem from "../_components/barbershop-item";
+import BarbershopItem from "./_components/barbershop-item";
 import Hello from "./_components/hello";
 import Header from "../_components/header";
 
