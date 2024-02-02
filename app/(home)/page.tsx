@@ -5,6 +5,7 @@ import Search from "./_components/search";
 import BookingItem from "../_components/booking-item";
 import { db as prismaClient } from "@/app/_lib/prisma";
 import BarbershopItem from "../_components/barbershop-item";
+import Hello from "./_components/hello";
 
 export default async function Home() {
   const barbershops = await prismaClient.barbershop.findMany();
@@ -12,9 +13,7 @@ export default async function Home() {
   return (
     <div className="px-5">
       <div className="flex flex-col gap-y-1  py-6">
-        <p className="text-xl">
-          Olá, <span className="font-semibold">Paulo</span>!
-        </p>
+        <Hello />
         <p className="text-sm capitalize">
           {format(new Date(), "EEEE ',' d 'de ' LLLL", { locale: ptBR })}
         </p>
