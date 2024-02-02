@@ -23,7 +23,10 @@ import EnsureDialog from "./ui/ensure-dialog";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-const Menu = () => {
+interface MenuProps {
+  buttonSize?: string;
+}
+const Menu = ({ buttonSize }: MenuProps) => {
   const { data } = useSession();
   const handleLoginClick = async () => {
     await signIn();
@@ -34,7 +37,11 @@ const Menu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon" className="h-8 w-8">
+        <Button
+          variant="outline"
+          size="icon"
+          className={buttonSize ? buttonSize : "h-12 w-12"}
+        >
           <MenuIcon size={20} />
         </Button>
       </SheetTrigger>
