@@ -21,7 +21,9 @@ export default async function Home() {
             {format(new Date(), "EEEE ',' d 'de ' LLLL", { locale: ptBR })}
           </p>
         </div>
-        <Search />
+        <div className="w-full">
+          <Search />
+        </div>
         <div className="mt-9 flex flex-col gap-y-3">
           <h2 className=" text-xs font-bold uppercase text-gray-400">
             Agendamentos
@@ -35,7 +37,9 @@ export default async function Home() {
           <div className="no-scrollbar flex gap-4 overflow-x-auto">
             {barbershops
               .map((barbershop) => (
-                <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+                <div className="w-[167px]">
+                  <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+                </div>
               ))
               .slice(0, 4)}
           </div>
@@ -47,7 +51,9 @@ export default async function Home() {
           <div className="no-scrollbar flex gap-4 overflow-x-auto">
             {barbershops
               .map((barbershop) => (
-                <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+                <div className="w-[167px]">
+                  <BarbershopItem barbershop={barbershop} key={barbershop.id} />
+                </div>
               ))
               .slice(4)}
           </div>
