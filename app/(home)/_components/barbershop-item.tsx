@@ -20,7 +20,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
             className=" w-full rounded-2xl"
           />
         </div>
-        <div className="mt-2 flex flex-col px-2 pb-2">
+        <div className="mt-2 flex w-[167px] flex-col px-2 pb-2">
           <h2 className="overflow-hidden text-ellipsis text-nowrap font-bold">
             {barbershop.name}
           </h2>
