@@ -41,7 +41,7 @@ export default async function Home() {
                   <BarbershopItem barbershop={barbershop} key={barbershop.id} />
                 </div>
               ))
-              .slice(0, 4)}
+              .slice(0, 5)}
           </div>
         </div>
         <div className="mt-6">
@@ -55,7 +55,7 @@ export default async function Home() {
                   <BarbershopItem barbershop={barbershop} key={barbershop.id} />
                 </div>
               ))
-              .slice(4)}
+              .slice(5)}
           </div>
         </div>
       </div>
