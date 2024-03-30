@@ -36,8 +36,8 @@ export default async function Home() {
           </h2>
           <div className="no-scrollbar flex gap-4 overflow-x-auto">
             {barbershops
-              .map((barbershop) => (
-                <div className="w-[167px]">
+              .map((barbershop, index) => (
+                <div className="w-[167px]" key={index}>
                   <BarbershopItem barbershop={barbershop} key={barbershop.id} />
                 </div>
               ))
@@ -50,8 +50,8 @@ export default async function Home() {
           </h2>
           <div className="no-scrollbar flex gap-4 overflow-x-auto">
             {barbershops
-              .map((barbershop) => (
-                <div className="w-[167px]">
+              .map((barbershop, index) => (
+                <div className="w-[167px]" key={index}>
                   <BarbershopItem barbershop={barbershop} key={barbershop.id} />
                 </div>
               ))
