@@ -10,16 +10,17 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/app/_components/ui/sheet";
-import { Barbershop, Service } from "@prisma/client";
+import { Barbershop, Booking, Service } from "@prisma/client";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { generateDayTimeList } from "../_helpers/hours";
-import { format, setHours, setMinutes } from "date-fns";
+import { format, set, setHours, setMinutes } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { saveBooking, SaveBookingParams } from "../_actions/save-booking";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { getDayBookings } from "../_actions/get-day-bookings";
 
 interface ServiceItemProps {
   service: Service;
@@ -36,18 +37,33 @@ const ServiceItem = ({
   const [isFetchingSubmit, setIsFetchingSubmit] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [time, setTime] = useState<string | undefined>(undefined);
-  console.log("🚀 ~ ServiceItem ~ time:", time);
+  const [dayBookings, setDayBookings] = useState<Booking[]>([]);
 
   const timeList = useMemo(() => {
     if (!date) return [];
-    return generateDayTimeList(date);
-  }, [date]);
-  const handleClick = () => {
+
+    return generateDayTimeList(date).filter((time) => {
+      const dateHours = Number(time.split(":")[0]);
+      const dateMinutes = Number(time.split(":")[1]);
+
+      const booking = dayBookings.find((item) => {
+        const bookingHour = item.date.getHours();
+        const bookingMinutes = item.date.getMinutes();
+
+        return bookingHour === dateHours && bookingMinutes === dateMinutes;
+      });
+
+      if (!booking) {
+        return true;
+      }
+      return false;
+    });
+  }, [date, dayBookings]);
+
+  const handleBookingClick = () => {
     if (!isAuthenticated) {
       return signIn("google");
     }
-
-    // TODO scheduler
   };
 
   const handleChangeDate = (date?: Date) => {
@@ -55,7 +71,7 @@ const ServiceItem = ({
     setTime(undefined);
   };
 
-  const handleBookingConfirm = async () => {
+  const handleBookingSubmit = async () => {
     if (!date || !time || !data) return;
     setIsFetchingSubmit(true);
 
@@ -67,7 +83,6 @@ const ServiceItem = ({
     const bookingDate = setMinutes(setHours(date, dateHours), dateMinutes);
 
     try {
-      console.log("🚀 ~ handleBookingConfirm ~ barbershop.id:", barbershop.id);
       await saveBooking({
         barbershopId: barbershop.id,
         date: bookingDate,
@@ -95,6 +110,18 @@ const ServiceItem = ({
       setIsFetchingSubmit(false);
     }
   };
+
+  useEffect(() => {
+    if (!date) return;
+
+    const refetchUnavailableTimes = async () => {
+      const _dayBookings = await getDayBookings(barbershop.id, date);
+      setDayBookings(_dayBookings);
+    };
+
+    refetchUnavailableTimes();
+  }, [barbershop.id, date]);
+
   return (
     <Card className="rounded-2xl bg-accent">
       <CardContent className="w-full p-3">
@@ -204,7 +231,7 @@ const ServiceItem = ({
                   )}
                   <SheetFooter className="mt-4">
                     <Button
-                      onClick={() => handleBookingConfirm()}
+                      onClick={() => handleBookingSubmit()}
                       disabled={!date || !time || isFetchingSubmit}
                       className="mx-4"
                     >
@@ -216,7 +243,7 @@ const ServiceItem = ({
                   </SheetFooter>
                 </SheetContent>
                 <SheetTrigger asChild>
-                  <Button variant="secondary" onClick={handleClick}>
+                  <Button variant="secondary" onClick={handleBookingClick}>
                     Reservar
                   </Button>
                 </SheetTrigger>
