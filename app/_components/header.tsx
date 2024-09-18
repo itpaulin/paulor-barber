@@ -16,7 +16,6 @@ const Header = () => {
             alt="logo PauloR Barber"
             width={130}
             height={0}
-            className=""
           />
         </Link>
         <Menu />
