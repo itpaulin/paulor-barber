@@ -29,7 +29,7 @@ interface MenuProps {
 const Menu = ({ buttonSize }: MenuProps) => {
   const { data } = useSession();
   const handleLoginClick = async () => {
-    await signIn();
+    await signIn('google');
   };
   const handleLogoutClick = async () => {
     await signOut();
