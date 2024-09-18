@@ -13,7 +13,7 @@ interface BarbershopInfoProps {
 const BarbershopInfo = ({ barbershop }: BarbershopInfoProps) => {
   const route = useRouter();
   const handleBackClick = () => {
-    route.push("/");
+    route.replace("/");
   };
   return (
     <div>
