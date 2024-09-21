@@ -29,7 +29,7 @@ interface MenuProps {
 const Menu = ({ buttonSize }: MenuProps) => {
   const { data } = useSession();
   const handleLoginClick = async () => {
-    await signIn('google');
+    await signIn("google");
   };
   const handleLogoutClick = async () => {
     await signOut();
@@ -109,7 +109,7 @@ const Menu = ({ buttonSize }: MenuProps) => {
               Início
             </Button>
           </Link>
-          <Link href="/">
+          <Link href="/bookings">
             <Button
               variant="outline"
               className="flex w-full items-center justify-start gap-x-2 rounded-xl"
