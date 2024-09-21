@@ -21,6 +21,7 @@ import { saveBooking, SaveBookingParams } from "../_actions/save-booking";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { getDayBookings } from "../_actions/get-day-bookings";
+import SchedulingCard from "@/app/_components/scheduling-card";
 
 interface ServiceItemProps {
   service: Service;
@@ -197,37 +198,13 @@ const ServiceItem = ({
                     </div>
                   )}
                   {time && date && (
-                    <Card className="m-4">
-                      <CardContent className="flex flex-col gap-3 p-3">
-                        <div className="flex flex-row justify-between">
-                          <h2>{service.name}</h2>
-                          <h3>
-                            {Intl.NumberFormat("pt-BR", {
-                              style: "currency",
-                              currency: "BRL",
-                            }).format(Number(service.price))}
-                          </h3>
-                        </div>
-
-                        <div className="flex flex-row justify-between text-sm font-light">
-                          <h3 className=" text-gray-500">Data</h3>
-                          <h4>
-                            {date &&
-                              format(date, "dd 'de' MMMM", { locale: ptBR })}
-                          </h4>
-                        </div>
-
-                        <div className="flex flex-row justify-between text-sm font-light">
-                          <h3 className=" text-gray-500">Horário</h3>
-                          <h4>{time}</h4>
-                        </div>
-
-                        <div className="flex flex-row justify-between  text-sm font-light">
-                          <h3 className=" text-gray-500">Barbearia</h3>
-                          <h4>{barbershop.name}</h4>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <SchedulingCard
+                      barbershopName={barbershop.name}
+                      date={date}
+                      time={time}
+                      serviceName={service.name}
+                      servicePrice={service.price}
+                    />
                   )}
                   <SheetFooter className="mt-4">
                     <Button
