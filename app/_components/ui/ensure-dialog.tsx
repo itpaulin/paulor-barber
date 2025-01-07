@@ -1,5 +1,3 @@
-import { Copy } from "lucide-react";
-
 import { Button } from "@/app/_components/ui/button";
 import {
   Dialog,

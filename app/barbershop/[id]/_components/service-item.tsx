@@ -15,13 +15,14 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { generateDayTimeList } from "../_helpers/hours";
-import { format, set, setHours, setMinutes } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { saveBooking, SaveBookingParams } from "../_actions/save-booking";
+import { setHours, setMinutes } from "date-fns";
+
+import { saveBooking } from "../_actions/save-booking";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { getDayBookings } from "../_actions/get-day-bookings";
 import SchedulingCard from "@/app/_components/scheduling-card";
+import { redirect } from "next/navigation";
 
 interface ServiceItemProps {
   service: Service;
@@ -97,8 +98,8 @@ const ServiceItem = ({
         action: {
           label: "Ver Reservas",
           onClick: () => {
-            //TODO pagina de agendamentos
-            console.log("Ver Reservas");
+            //! nao ta funcionado
+            return redirect("/");
           },
         },
       });
@@ -124,7 +125,7 @@ const ServiceItem = ({
   }, [barbershop.id, date]);
 
   return (
-    <Card className="rounded-2xl bg-accent">
+    <Card className="rounded-2xl ">
       <CardContent className="w-full p-3">
         <div className="flex w-full flex-row items-center">
           <div className="relative max-h-[110px] min-h-[110px] min-w-[110px] max-w-[110px]">
@@ -152,6 +153,8 @@ const ServiceItem = ({
                   <SheetHeader className="items-start border-b-2 p-6">
                     <SheetTitle>Fazer Reserva</SheetTitle>
                   </SheetHeader>
+
+                  {/* //TODO quando nao tem mais time disponivel, disabilita o dia ou mostra uma mensagem */}
                   <Calendar
                     fromDate={new Date()}
                     mode="single"

@@ -27,6 +27,7 @@ import SchedulingCard from "./scheduling-card";
 import { Button } from "./ui/button";
 import { cancelBooking } from "../_actions/cancel-booking";
 import { toast, Toaster } from "sonner";
+import EnsureDialog from "./ui/ensure-dialog";
 
 export type TBookingItem = Prisma.BookingGetPayload<{
   include: {
@@ -42,26 +43,14 @@ const BookingItem = ({ booking }: BookingItemProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const badgeStatus = useMemo(() => {
-    if (booking.date < new Date())
-      return (
-        <Badge className=" ml-3 bg-gray-500 bg-opacity-65 text-gray-200 hover:bg-gray-500">
-          Finalizado
-        </Badge>
-      );
-    return (
-      <Badge className="ml-3 bg-amber-900 text-primary-figma hover:text-orange-300">
-        Confirmado
-      </Badge>
-    );
-  }, [booking.date]);
+  const isBookingConfirmed = booking.date > new Date();
 
   const handleCancelBooking = async () => {
     setIsLoading(true);
     return await cancelBooking(booking.id)
       .then(() => {
-        toast.success("Reserva cancelada com sucesso");
         setIsOpen(false);
+        toast.success("Reserva cancelada com sucesso");
       })
       .catch((err) => {
         console.log(err);
@@ -72,12 +61,19 @@ const BookingItem = ({ booking }: BookingItemProps) => {
       });
   };
   return (
-    <Sheet open={isOpen}>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Card className="max-h-[111px] min-w-full rounded-xl bg-accent">
+        <Card className="max-h-[111px] min-w-full rounded-xl">
           <CardContent className="flex flex-row items-stretch justify-between p-0">
             <div>
-              <div className="pt-3">{badgeStatus}</div>
+              <div className="px-2 pt-3">
+                <Badge
+                  variant={isBookingConfirmed ? "default" : "secondary"}
+                  className="w-fit"
+                >
+                  {isBookingConfirmed ? "Confirmado" : "Finalizado"}
+                </Badge>
+              </div>
               <div className="flex flex-col gap-y-2 px-3 pb-4 pt-2">
                 <p className="text-[1rem] font-semibold">
                   {booking.service.name}
@@ -92,16 +88,18 @@ const BookingItem = ({ booking }: BookingItemProps) => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-center border-l-2 border-secondary px-9 pt-5 text-center">
-              <p className="text-[0.75rem] capitalize">
-                {format(booking.date, "MMMM", { locale: ptBR })}
-              </p>
-              <p className="text-2xl font-light">
-                {format(booking.date, "d", { locale: ptBR })}
-              </p>
-              <p className="text-[0.75rem] font-light">
+            <div className="mb-1.5 border-l-[0.1px]">
+              <div className="flex flex-col items-center px-9 pt-5 text-center">
+                <p className="text-[0.75rem] capitalize">
+                  {format(booking.date, "MMMM", { locale: ptBR })}
+                </p>
+                <p className="text-3xl font-light">
+                  {format(booking.date, "d", { locale: ptBR })}
+                </p>
+                <p className="text-[0.75rem] font-light">
                   {format(booking.date, "HH:mm", { locale: ptBR })}
-              </p>
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -149,7 +147,12 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           </div>
         </div>
         <div className="mt-6 px-2">
-          {badgeStatus}
+          <Badge
+            variant={isBookingConfirmed ? "default" : "secondary"}
+            className="w-fit"
+          >
+            {isBookingConfirmed ? "Confirmado" : "Finalizado"}
+          </Badge>
           <SchedulingCard
             barbershopName={booking.barbershop.name}
             date={booking.date}
@@ -164,13 +167,17 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               Voltar
             </Button>
           </SheetClose>
-          <Button
-            className="w-full"
-            variant="destructive"
-            onClick={() => cancelBooking(booking.id)}
+          <EnsureDialog
+            action={handleCancelBooking}
+            cancel="Não, vou manter"
+            confirm="Sim, desejo cancelar"
+            text="Deseja mesmo cancelar a reserva?"
+            title="Cancelar Reserva"
           >
-            Cancelar Reserva
-          </Button>
+            <Button className="w-full" variant="destructive">
+              Cancelar Reserva
+            </Button>
+          </EnsureDialog>
         </SheetFooter>
       </SheetContent>
     </Sheet>
