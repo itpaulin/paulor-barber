@@ -1,3 +1,4 @@
+import './env.mjs' // validation env variables
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
