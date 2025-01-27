@@ -5,7 +5,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 import { db } from "@/app/_lib/prisma";
 import { env } from "@/env.mjs";
 
-export const authOptions: AuthOptions = {
+ const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
     GoogleProvider({
@@ -25,3 +25,5 @@ export const authOptions: AuthOptions = {
     },
   },
 };
+
+export default authOptions
