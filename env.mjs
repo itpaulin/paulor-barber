@@ -12,6 +12,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string().min(1),
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     DIRECT_URL: z.string().url(),
+    AUTH_SECRET: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
@@ -32,5 +33,6 @@ export const env = createEnv({
     DIRECT_URL: process.env.DIRECT_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    AUTH_SECRET: process.env.AUTH_SECRET,
   },
 });
