@@ -3,7 +3,7 @@ import BookingItem from "../_components/booking-item";
 import Header from "../_components/header";
 import { Card, CardContent } from "../_components/ui/card";
 import { db } from "../_lib/prisma";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/_lib/authOptions";
 import { signIn } from "next-auth/react";
 import { redirect } from "next/navigation";
 

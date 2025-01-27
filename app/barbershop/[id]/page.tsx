@@ -4,7 +4,7 @@ import ServiceItem from "./_components/service-item";
 import { Button } from "@/app/_components/ui/button";
 import Tabs from "./_components/tabs";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/_lib/authOptions";
 
 interface BarbershopDetailsPageProps {
   params: {
