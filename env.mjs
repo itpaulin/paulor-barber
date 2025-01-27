@@ -12,7 +12,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: z.string().min(1),
     GOOGLE_CLIENT_SECRET: z.string().min(1),
     DIRECT_URL: z.string().url(),
-    AUTH_SECRET: z.string().min(1),
+    NEXTAUTH_SECRET: z.string().min(1),
   },
   /*
    * Environment variables available on the client (and server).
