@@ -10,7 +10,7 @@
     "db:gen": "npx prisma generate",
     "db:migrate": "npx prisma migrate dev --name",
     "db:push": "npx prisma db push",
-    "db:seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "db:seed": "npx prisma db seed"
   },
 
   "dependencies": {
