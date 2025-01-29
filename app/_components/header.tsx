@@ -6,6 +6,8 @@ import Link from "next/link";
 
 import Menu from "./menu";
 
+import ShortsDesktop from "./shorts-desktop";
+
 const Header = () => {
   return (
     <Card className="rounded-none bg-[#141518]">
@@ -18,6 +20,10 @@ const Header = () => {
             height={0}
           />
         </Link>
+        {/* Only in desktop */}
+        <ShortsDesktop />
+        {/* Only in mobile */}
+
         <Menu />
       </CardContent>
     </Card>
