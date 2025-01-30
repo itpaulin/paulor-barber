@@ -22,6 +22,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import EnsureDialog from "./ui/ensure-dialog";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import UserLogged from "./user-logged";
 
 interface MenuProps {
   buttonSize?: string;
@@ -35,93 +36,79 @@ const Menu = ({ buttonSize }: MenuProps) => {
     await signOut();
   };
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className={buttonSize ? buttonSize : "h-12 w-12"}
-        >
-          <MenuIcon size={20} />
-        </Button>
-      </SheetTrigger>
-      <SheetContent>
-        <div className="mb-7 flex justify-start">
-          <h1 className="font-semibold">Menu</h1>
-        </div>
-        <div className="absolute right-0 w-full border border-accent"></div>
-        <div className="mb-6">
-          {data?.user ? (
-            <div className=" flex flex-row items-center pt-6">
-              <Avatar>
-                <AvatarImage src={data.user.image!} alt="@shadcn" />
-                <AvatarFallback>{data.user.name}</AvatarFallback>
-              </Avatar>
-              <span className="px-3 pt-1 font-normal">{data.user.name}</span>
-
-              <EnsureDialog
-                text="Deseja mesmo sair da plataforma?"
-                confirm="Sair"
-                cancel="Cancelar"
-                title="Sair"
-                action={handleLogoutClick}
-              >
-                <Button variant="outline" size="icon" className="mt-1">
-                  <LogOut size={20} />
+    <div className="md:hidden">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className={buttonSize ? buttonSize : "h-12 w-12"}
+          >
+            <MenuIcon size={20} />
+          </Button>
+        </SheetTrigger>
+        <SheetContent>
+          <div className="mb-7 flex justify-start">
+            <h1 className="font-semibold">Menu</h1>
+          </div>
+          <div className="absolute right-0 w-full border border-accent"></div>
+          <div className="mb-6">
+            {data?.user ? (
+              <div className="pt-6">
+                <UserLogged />
+              </div>
+            ) : (
+              <div className=" flex flex-row pb-3 pt-6">
+                <Avatar>
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <span className="px-3 pt-2 font-normal">
+                  Olá. Faça seu login!
+                </span>
+              </div>
+            )}
+            <div>
+              {!data?.user && (
+                <Button
+                  variant="outline"
+                  className="flex w-full items-center  justify-start gap-x-2 rounded-xl"
+                  onClick={handleLoginClick}
+                >
+                  <LogIn size={16} />
+                  Fazer Login
                 </Button>
-              </EnsureDialog>
+              )}
             </div>
-          ) : (
-            <div className=" flex flex-row pb-3 pt-6">
-              <Avatar>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <span className="px-3 pt-2 font-normal">
-                Olá. Faça seu login!
-              </span>
-            </div>
-          )}
-          <div>
-            {!data?.user && (
+          </div>
+
+          <div className=" flex w-full flex-col gap-y-3">
+            <Link href="/">
               <Button
                 variant="outline"
                 className="flex w-full items-center  justify-start gap-x-2 rounded-xl"
-                onClick={handleLoginClick}
               >
-                <LogIn size={16} />
-                Fazer Login
+                <Home size={16} />
+                Início
               </Button>
-            )}
+            </Link>
+            <Link href="/bookings">
+              <Button
+                variant="outline"
+                className="flex w-full items-center justify-start gap-x-2 rounded-xl"
+                disabled={!data?.user}
+              >
+                <CalendarDaysIcon size={16} />
+                Agendamentos
+              </Button>
+            </Link>
           </div>
-        </div>
-
-        <div className=" flex w-full flex-col gap-y-3">
-          <Link href="/">
-            <Button
-              variant="outline"
-              className="flex w-full items-center  justify-start gap-x-2 rounded-xl"
-            >
-              <Home size={16} />
-              Início
-            </Button>
-          </Link>
-          <Link href="/bookings">
-            <Button
-              variant="outline"
-              className="flex w-full items-center justify-start gap-x-2 rounded-xl"
-              disabled={!data?.user}
-            >
-              <CalendarDaysIcon size={16} />
-              Agendamentos
-            </Button>
-          </Link>
-        </div>
-      </SheetContent>
-    </Sheet>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 };
 
