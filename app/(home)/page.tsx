@@ -32,45 +32,59 @@ export default async function Home() {
   ]);
 
   return (
-    <div className="">
+    <div>
       <Header />
       <div className="">
-        <div className="flex flex-col gap-y-1  px-5 py-6">
-          <Hello />
-          <p className="text-sm capitalize">
-            {format(new Date(), "EEEE ',' d 'de ' LLLL", { locale: ptBR })}
-          </p>
-        </div>
-        <div className="w-full px-5">
-          <Search />
-        </div>
-        {confirmedBookings.length > 0 && (
-          <div className="mt-9 flex flex-col gap-y-3">
-            <h2 className=" px-5 text-xs font-bold uppercase text-gray-400">
-              Agendamentos
+        <div className="md:relative md:flex md:flex-row md:items-start md:justify-between md:gap-6 md:py-16">
+          <Image
+            src={"/home-bg.png"}
+            alt="Home background"
+            fill
+            className="absolute inset-0 -z-10 hidden h-full w-full object-cover object-[center_top] opacity-30 md:block"
+          />
+          <div className="absolute inset-0 -z-10 hidden bg-black bg-opacity-50 md:block" />
+          <div className="md:w-3/5 md:pl-24 lg:pl-32 xl:w-2/5">
+            <div className="flex flex-col gap-y-1  px-5 py-6">
+              <Hello />
+              <p className="text-sm capitalize">
+                {format(new Date(), "EEEE ',' d 'de ' LLLL", { locale: ptBR })}
+              </p>
+            </div>
+            <div className="w-full px-5">
+              <Search />
+            </div>
+            {confirmedBookings.length > 0 && (
+              <div className="mt-9 flex flex-col gap-y-3">
+                <h2 className=" px-5 text-xs font-bold uppercase text-gray-400">
+                  Agendamentos
+                </h2>
+                <div className="no-scrollbar flex gap-3 overflow-x-auto overflow-y-hidden px-5">
+                  {confirmedBookings.map((booking, i) => (
+                    <BookingItem key={i} booking={booking} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="mt-6 md:w-2/5 md:pr-24 lg:pr-32 xl:w-3/5">
+            <h2 className=" mb-3 px-5 text-xs font-bold uppercase text-gray-400">
+              Recomendados
             </h2>
-            <div className="no-scrollbar flex gap-3 overflow-x-auto overflow-y-hidden px-5">
-              {confirmedBookings.map((booking, i) => (
-                <BookingItem key={i} booking={booking} />
-              ))}
+            <div className="no-scrollbar flex gap-4 overflow-x-auto px-5">
+              {barbershops
+                .map((barbershop, index) => (
+                  <div className="w-[167px]" key={index}>
+                    <BarbershopItem
+                      barbershop={barbershop}
+                      key={barbershop.id}
+                    />
+                  </div>
+                ))
+                .slice(0, 5)}
             </div>
           </div>
-        )}
-        <div className="mt-6">
-          <h2 className=" mb-3 px-5 text-xs font-bold uppercase text-gray-400">
-            Recomendados
-          </h2>
-          <div className="no-scrollbar flex gap-4 overflow-x-auto px-5">
-            {barbershops
-              .map((barbershop, index) => (
-                <div className="w-[167px]" key={index}>
-                  <BarbershopItem barbershop={barbershop} key={barbershop.id} />
-                </div>
-              ))
-              .slice(0, 5)}
-          </div>
         </div>
-        <div className="mt-6">
+        <div className="mt-6 md:px-24 lg:px-32">
           <h2 className=" mb-3 px-5 text-xs font-bold uppercase text-gray-400">
             Populares
           </h2>
