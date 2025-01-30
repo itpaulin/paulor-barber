@@ -10,7 +10,7 @@ import ShortsDesktop from "./shorts-desktop";
 
 const Header = () => {
   return (
-    <Card className="rounded-none bg-[#141518]">
+    <Card className="rounded-none border-x-0 bg-[#141518] md:px-24 lg:px-32">
       <CardContent className="flex h-[90px] w-full flex-row items-center justify-between px-5 py-6">
         <Link href="/">
           <Image
