@@ -28,6 +28,7 @@ import { Button } from "./ui/button";
 import { cancelBooking } from "../_actions/cancel-booking";
 import { toast, Toaster } from "sonner";
 import EnsureDialog from "./ui/ensure-dialog";
+import BarbershopContactPhone from "../barbershop/[id]/_components/barbershop-contact-phone";
 
 export type TBookingItem = Prisma.BookingGetPayload<{
   include: {
@@ -105,13 +106,13 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         </Card>
       </SheetTrigger>
 
-      <SheetContent className="px-0">
-        <SheetHeader className="border-grey-50 border-b-2 border-solid px-5 pb-6 text-left">
+      <SheetContent className="flex flex-grow flex-col px-0">
+        <SheetHeader className="border-grey-50 border-b-2 border-solid px-5 pb-4 text-left">
           <SheetTitle>Informações da Reserva</SheetTitle>
         </SheetHeader>
 
         <div className="px-5">
-          <div className="relative mt-6 h-[180px] w-full">
+          <div className="relative  h-[180px] w-full">
             <Image src="/mapa.png" alt="Mapa" fill />
             <div className="lef-0 absolute bottom-4 w-full px-3">
               <Card>
@@ -146,13 +147,14 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             </div>
           </div>
         </div>
-        <div className="mt-6 px-2">
+        <div className=" flex  flex-grow flex-col gap-3 px-5">
           <Badge
             variant={isBookingConfirmed ? "default" : "secondary"}
             className="w-fit"
           >
             {isBookingConfirmed ? "Confirmado" : "Finalizado"}
           </Badge>
+
           <SchedulingCard
             barbershopName={booking.barbershop.name}
             date={booking.date}
@@ -160,25 +162,31 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             time={format(booking.date, "HH:mm", { locale: ptBR })}
             servicePrice={booking.service.price}
           />
+
+          {/* //TODO Dinamic */}
+          <BarbershopContactPhone phoneNumber={"((11) 98204-5108"} />
+          <BarbershopContactPhone phoneNumber={"(11) 99503-2351"} />
         </div>
-        <SheetFooter className="flex-row gap-3 px-3">
-          <SheetClose asChild>
-            <Button className="w-full" variant="secondary">
-              Voltar
-            </Button>
-          </SheetClose>
-          <EnsureDialog
-            action={handleCancelBooking}
-            cancel="Não, vou manter"
-            confirm="Sim, desejo cancelar"
-            text="Deseja mesmo cancelar a reserva?"
-            title="Cancelar Reserva"
-          >
-            <Button className="w-full" variant="destructive">
-              Cancelar Reserva
-            </Button>
-          </EnsureDialog>
-        </SheetFooter>
+        {isBookingConfirmed && (
+          <SheetFooter className="flex-row gap-3 px-3">
+            <SheetClose asChild>
+              <Button className="w-full" variant="secondary">
+                Voltar
+              </Button>
+            </SheetClose>
+            <EnsureDialog
+              action={handleCancelBooking}
+              cancel="Não, vou manter"
+              confirm="Sim, desejo cancelar"
+              text="Deseja mesmo cancelar a reserva?"
+              title="Cancelar Reserva"
+            >
+              <Button className="w-full" variant="destructive">
+                Cancelar Reserva
+              </Button>
+            </EnsureDialog>
+          </SheetFooter>
+        )}
       </SheetContent>
     </Sheet>
   );
