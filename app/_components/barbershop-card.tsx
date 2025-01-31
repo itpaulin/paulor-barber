@@ -24,7 +24,7 @@ const BarbershopCard = ({ barbershop }: { barbershop: Barbershop }) => {
 
       {/* Card sobreposto, sem absolute */}
       <div className="z-1 -mt-16 flex w-full justify-center px-3 pb-3">
-        <Card className="w-full max-w-[90%] shadow-lg">
+        <Card className="w-full max-w-[90%] bg-zinc-900 shadow-lg">
           <CardContent className="px-3 py-2">
             <div className="flex flex-row items-center gap-3">
               <Avatar>
