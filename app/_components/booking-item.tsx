@@ -1,17 +1,12 @@
 "use client";
 
-import { Booking, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { Card, CardContent } from "./ui/card";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+
 import {
   Sheet,
   SheetClose,
@@ -21,14 +16,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import SchedulingCard from "./scheduling-card";
 import { Button } from "./ui/button";
 import { cancelBooking } from "../_actions/cancel-booking";
 import { toast, Toaster } from "sonner";
 import EnsureDialog from "./ui/ensure-dialog";
 import BarbershopContactPhone from "../barbershop/[id]/_components/barbershop-contact-phone";
+import BarbershopCard from "./barbershop-card";
 
 export type TBookingItem = Prisma.BookingGetPayload<{
   include: {
@@ -112,40 +107,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         </SheetHeader>
 
         <div className="px-5">
-          <div className="relative  h-[180px] w-full">
-            <Image src="/mapa.png" alt="Mapa" fill />
-            <div className="lef-0 absolute bottom-4 w-full px-3">
-              <Card>
-                <CardContent className="px-3 py-2">
-                  <div className="flex flex-row gap-3">
-                    <Avatar className="h-10 w-10">
-                      <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                    </Avatar>
-                    <div className="flex flex-col overflow-x-hidden">
-                      <p className="text-[1rem] font-semibold">
-                        {booking.barbershop.name}
-                      </p>
-                      <TooltipProvider>
-                        <Tooltip delayDuration={100}>
-                          <TooltipTrigger asChild>
-                            <p className="text-[0.8rem] text-gray-300">
-                              {booking.barbershop.address}
-                            </p>
-                          </TooltipTrigger>
-                          <TooltipContent
-                            side="bottom"
-                            className="max-w-[95vw]"
-                          >
-                            {booking.barbershop.address}
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
+          <BarbershopCard barbershop={booking.barbershop} />
         </div>
         <div className=" flex  flex-grow flex-col gap-3 px-5">
           <Badge
