@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/app/_components/ui/button";
 import { Calendar } from "@/app/_components/ui/calendar";
-import { Card, CardContent, CardTitle } from "@/app/_components/ui/card";
+import { Card, CardContent } from "@/app/_components/ui/card";
 import {
   Sheet,
   SheetContent,
@@ -22,7 +22,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { getDayBookings } from "../_actions/get-day-bookings";
 import SchedulingCard from "@/app/_components/scheduling-card";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface ServiceItemProps {
   service: Service;
@@ -35,6 +35,7 @@ const ServiceItem = ({
   barbershop,
 }: ServiceItemProps) => {
   const { data } = useSession();
+  const router = useRouter();
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
   const [isFetchingSubmit, setIsFetchingSubmit] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -97,10 +98,7 @@ const ServiceItem = ({
         description: "Sua reserva foi agendada com sucesso.",
         action: {
           label: "Ver Reservas",
-          onClick: () => {
-            //! nao ta funcionado
-            return redirect("/");
-          },
+          onClick: (e) => router.push("/bookings"),
         },
       });
 
