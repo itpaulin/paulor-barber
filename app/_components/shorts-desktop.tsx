@@ -15,7 +15,6 @@ const ShortsDesktop = () => {
   const handleLogoutClick = async () => {
     await signOut();
   };
-  console.log(data?.user);
   return (
     <div className="hidden items-center justify-center space-x-6 md:flex">
       {data?.user && (
