@@ -19,8 +19,8 @@ const SchedulingCard = ({
   servicePrice,
 }: SchedulingCardProps) => {
   return (
-    <Card className="m-4">
-      <CardContent className="flex flex-col gap-3 p-3">
+    <Card className=" rounded-lg border border-gray-800">
+      <CardContent className="flex flex-col gap-3 rounded-lg bg-secondary p-3">
         <div className="flex flex-row justify-between">
           <h2>{serviceName}</h2>
           <h3>
