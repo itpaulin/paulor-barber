@@ -5,25 +5,25 @@ import { Copy, Smartphone } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const BarbershopContactPhone = ({ phoneNumber }: { phoneNumber: string }) => {
-  const [copiedText, setCopiedText] = useState("Copiar");
+  // const [copiedText, setCopiedText] = useState("Copiar");
 
-  const checkNumberIsCopied = async () => {
-    try {
-      const clipboard = await navigator.clipboard.readText();
-      return clipboard === phoneNumber;
-    } catch {
-      return false;
-    }
-  };
+  // const checkNumberIsCopied = async () => {
+  //   try {
+  //     const clipboard = await navigator.clipboard.readText();
+  //     return clipboard === phoneNumber;
+  //   } catch {
+  //     return false;
+  //   }
+  // };
 
-  useEffect(() => {
-    const verifyClipboard = async () => {
-      const numberIsCopied = await checkNumberIsCopied();
-      setCopiedText(numberIsCopied ? "Copiado!" : "Copiar");
-    };
+  // useEffect(() => {
+  //   const verifyClipboard = async () => {
+  //     const numberIsCopied = await checkNumberIsCopied();
+  //     setCopiedText(numberIsCopied ? "Copiado!" : "Copiar");
+  //   };
 
-    verifyClipboard();
-  }, [phoneNumber]); // Atualiza sempre que `phoneNumber` mudar
+  //   verifyClipboard();
+  // }, [phoneNumber]); // Atualiza sempre que `phoneNumber` mudar
 
   return (
     <div className="flex flex-row items-center justify-between gap-2">
@@ -34,13 +34,14 @@ const BarbershopContactPhone = ({ phoneNumber }: { phoneNumber: string }) => {
       <Button
         onClick={async () => {
           await navigator.clipboard.writeText(phoneNumber);
-          setCopiedText("Copiado!");
+          // setCopiedText("Copiado!");
         }}
         size="sm"
-        variant={copiedText === "Copiado!" ? "default" : "secondary"}
+        // variant={copiedText === "Copiado!" ? "default" : "secondary"}/*  */
+        variant="secondary"
         className="rounded-lg"
       >
-        {copiedText}
+        Copiar
       </Button>
     </div>
   );
