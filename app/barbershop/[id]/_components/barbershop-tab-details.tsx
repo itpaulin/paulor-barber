@@ -5,7 +5,7 @@ interface TabsProps {
   servicesContent: ReactNode;
   infoContent: ReactNode;
 }
-const Tabs = ({ servicesContent, infoContent }: TabsProps) => {
+const BarbershopTabDetails = ({ servicesContent, infoContent }: TabsProps) => {
   const [selected, setSelected] = useState<string>("services");
 
   const handleInfoClick = () => {
@@ -15,22 +15,24 @@ const Tabs = ({ servicesContent, infoContent }: TabsProps) => {
     setSelected("services");
   };
   return (
-    <div className="px-5 pt-6">
-      <div className="flex flex-row gap-[10px]">
+    <div className=" pt-6">
+      <div className=" flex flex-row gap-[10px] px-5">
         <Button
+          size="sm"
           variant={selected === "services" ? "default" : "outline"}
           onClick={handleServiceClick}
         >
           Serviços
         </Button>
         <Button
+          size="sm"
           variant={selected === "info" ? "default" : "outline"}
           onClick={handleInfoClick}
         >
           Informações
         </Button>
       </div>
-      <div className="pt-6">
+      <div className="pt-6 ">
         {selected === "services" && servicesContent}
         {selected === "info" && infoContent}
       </div>
@@ -38,4 +40,4 @@ const Tabs = ({ servicesContent, infoContent }: TabsProps) => {
   );
 };
 
-export default Tabs;
+export default BarbershopTabDetails;
